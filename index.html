@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+    <title>Currency Converter</title>
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <section class="container_content ">
+        <div class="main">
+            <div class=" from_container">
+                <p id="from_tooltip" class="from_tooltip titillium"></p>
+                <div class="title nunito">
+                    <input class=" nunito" onChange="handle_change()" id="current_date" type="date" />
+                    <i class="fa fa-bars cursor-pointer" style="visibility:hidden;display: none;"></i>
+                </div>
+                <div class=" heading nunito" style="visibility:hidden;display: none;">
+                    <select class=" cursor-pointer">
+                        <option>Currency</option>
+                        <option>Measurement</option>
+                    </select>
+                </div>
+                <div class="from">
+                    <input class=" titillium" id="from_inputField" name="from_inputField" type="text" value="1" />
+                    <select onChange="handle_change()" id="from_items"
+                        class="from_items on-top cursor-pointer nunito uppercase">
+                    </select>
+                </div>
+            </div>
+            <div class=" to_container">
+                <p id="to_tooltip" class="to_tooltip titillium"></p>
+                <div class="to">
+                    <input class=" titillium" id="to_inputField" name="to_inputField" type="text" value="1" />
+                    <select onChange="handle_change()" id="to_items"
+                        class="to_items on-top cursor-pointer nunito uppercase">
+                    </select>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="./script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,170 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap');
+
+:root {
+    --inputWidth: 80px;
+    --inputTextField: 90px;
+    --containerHeight: 180px;
+    --containerWidth: 300px;
+    --primaryColor: #ff0000;
+    --secondaryColor: #ffa4a4;
+    --white:#fff;
+    --boxShadow : rgba(0, 0, 0, 0.2);
+
+}
+
+*{
+    transition: all 0.2s;
+    margin: 0;
+    border: 0;
+    box-sizing: border-box;
+}
+
+.nunito {
+    font-family: "Nunito", serif;
+    font-optical-sizing: auto;
+    font-weight: 200;
+    font-style: normal;
+}
+.titillium {
+    font-family: "Titillium Web", serif;
+    font-weight: 200;
+    font-style: normal;
+}
+
+input, select {
+    background: transparent;
+    outline: none;
+}
+
+.container_content {
+    display: flex;
+    flex-direction: column;
+    height: 100dvh;
+    justify-content: center;
+    align-items: center;
+}
+.main{
+    box-shadow: 0 0 50px var(--boxShadow),
+        inset 10px 10px 30px var(--boxShadow);
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.from_container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-image: linear-gradient(to left bottom, rgba(255, 83, 83, 0.9), rgba(255, 83, 83, 0.2));
+    color: var(--white);
+    height: var(--containerHeight);
+    width: var(--containerWidth);
+    overflow: hidden;
+    position: relative;
+}
+
+.title{
+    display: flex;
+    justify-content:  space-between;
+    width: 100%;
+    padding: 10px 10px 0 ;
+}
+
+.title #current_date{
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--white);
+    cursor: pointer;
+}
+
+::-webkit-calendar-picker-indicator{
+    filter: invert();
+    cursor: pointer;
+    transform: scale(1.3);
+}
+.heading{
+    font-size: 22px;
+}
+.heading select:hover, .heading select:focus {
+    background-color: var(--secondaryColor);
+    border-radius: 3px;
+}
+
+.from{
+    flex-grow: 1;
+    width: 100%;
+    display: flex;
+    gap: 4px;
+    justify-content: center;
+    align-items: center;
+}
+.from #from_inputField{
+    width: var(--inputTextField);
+    font-size: 35px;
+    color: var(--white);
+    border-bottom: 1px solid var(--white);
+}
+.from #from_items{
+    width: var(--inputWidth);
+    background: var(--secondaryColor);
+    color: var(--white);
+    border-radius: 3px;
+}
+
+.to_container{
+    background: var(--white);
+    opacity: 0.7;
+    height: var(--containerHeight);
+    width: var(--containerWidth);
+    position: relative;
+}
+
+.to{
+    width: 100%;
+    height: 100%;
+    padding-left: 5px;
+    display: flex;
+    gap: 4px;
+    justify-content: center;
+    align-items: center;
+}
+.to #to_inputField{
+    width: var(--inputTextField);
+    font-size: 35px;
+    color:  var(--primaryColor);
+    border-bottom: 1px solid var(--primaryColor);
+}
+.to #to_items{
+    width: var(--inputWidth);
+    color: var(--primaryColor);
+}
+
+.uppercase {
+    text-transform: uppercase;
+}
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.on-top {
+    transform: translateY(-20px);
+}
+
+.from_tooltip, .to_tooltip {
+    position:absolute;
+    padding: 0 10px;
+    white-space: nowrap;
+    font-size: 20px;
+    opacity: 0.2;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.to_tooltip {
+    top: 0;right:0;
+    color: var(--primaryColor);
+}
+.from_tooltip {
+    bottom: 0;right:0;
+    color: var(--white);
+}

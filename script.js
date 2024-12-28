@@ -5,9 +5,8 @@ const current_date = document.querySelector("#current_date");
 const from_inputField = document.querySelector("#from_inputField");
 const to_inputField = document.querySelector("#to_inputField");
 
-const reset = () => {
-    localStorage.clear();
-}
+const reset = () => { localStorage.clear(); }
+
 const date = new Date();
 current_date.max = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`
 
@@ -16,8 +15,8 @@ const initialValue = {
     amount: 1,
     from: "usd",
     to: "inr",
-
 }
+
 current_date.value = initialValue.date;
 current_date.max = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
 current_date.min = `${date.getFullYear()}-${date.getMonth()}-${2024 - 1}`;
@@ -109,7 +108,6 @@ const handle_change = (whom = "from") => {
             break;
     }
 }
-handle_change();
 
 const validateInput = (element) => {
     const input = element.value.replace(/[^0-9.]/g, '');
@@ -128,7 +126,6 @@ const handleInputChange = (target, whom) => {
     }
     timeoutId = setTimeout(() => {
         handle_change(whom)
-        console.log(initialValue, inputValue)
     }, 500);
 }
 
@@ -140,3 +137,82 @@ from_inputField.addEventListener('input', (e) => {
 to_inputField.addEventListener('input', (e) => {
     validateInput(e.target) && handleInputChange(e.target, "to");
 })
+
+const from_suggestions = document.querySelector(".from_suggestions")
+const to_suggestions = document.querySelector(".to_suggestions")
+
+function getKeyByValue(object, value) {
+    return Object.keys(object).find(key => object[key] === value);
+}
+
+const getSuggestions = (whom = "from") => {
+    const n = 4
+    const sugg_items = JSON.parse(localStorage.getItem(`${whom}_sugg`))
+    if (!sugg_items) return [];
+    const sugg_keys = Object.keys(sugg_items)
+    if (sugg_keys.length < n + 1) {
+        return sugg_keys;
+    }
+    const items = [... new Set(Object.values(sugg_items).sort().reverse())]
+    return items
+        .splice(0, n)
+        .map(item => getKeyByValue(sugg_items, item))
+}
+
+function deleteDOMElement(element) {
+    while (element.firstChild) {
+        element.removeChild(element.lastChild);
+    }
+}
+
+const SuggestionsToDom = () => {
+    const from_items_sugg = getSuggestions("from");
+    const to_items_sugg = getSuggestions("to");
+    deleteDOMElement(from_suggestions)
+    deleteDOMElement(to_suggestions)
+    from_items_sugg.forEach((item) => {
+        const p = document.createElement("p");
+        p.innerText = item
+        p.addEventListener('click', () => {
+            from_items.value = item
+            handle_change()
+        })
+        from_suggestions.appendChild(p)
+    })
+    to_items_sugg.forEach((item) => {
+        const p = document.createElement("p");
+        p.innerText = item
+        p.addEventListener('click', () => {
+            to_items.value = item
+            handle_change()
+        })
+        to_suggestions.appendChild(p)
+    })
+}
+
+const updateLocalItems = (selected, whom) => {
+    let items = JSON.parse(localStorage.getItem(`${whom}_sugg`))
+    if (items) {
+        if (items[selected]) {
+            items[selected] = items[selected] + 1
+            localStorage.setItem(`${whom}_sugg`, JSON.stringify(items))
+        } else {
+            localStorage.setItem(`${whom}_sugg`, JSON.stringify({ ...items, [selected]: 1 }))
+        }
+    } else {
+        localStorage.setItem(`${whom}_sugg`, JSON.stringify({ [selected]: 1 }))
+    }
+}
+
+from_items.addEventListener('change', (e) => {
+    handle_change();
+    updateLocalItems(e.target.value, "from")
+})
+to_items.addEventListener('change', (e) => {
+    handle_change();
+    updateLocalItems(e.target.value, "to")
+})
+
+// initial commit
+handle_change();
+SuggestionsToDom();

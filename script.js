@@ -73,12 +73,12 @@ const getRateJson = async (date, from, to) => {
 };
 
 const update_to = (val) => {
-    document.querySelector("#to_tooltip").innerHTML = val.toFixed(5);
-    to_inputField.value = val;
+    document.querySelector("#to_tooltip").innerHTML = val.toFixed(7);
+    to_inputField.value = val.toFixed(3);
 }
 const update_from = (val) => {
-    document.querySelector("#from_tooltip").innerHTML = val.toFixed(5);
-    from_inputField.value = val;
+    document.querySelector("#from_tooltip").innerHTML = val.toFixed(7);
+    from_inputField.value = val.toFixed(3);
 }
 
 const handle_change = (whom = "from") => {

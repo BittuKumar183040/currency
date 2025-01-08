@@ -7,18 +7,25 @@ const to_inputField = document.querySelector("#to_inputField");
 
 const reset = () => { localStorage.clear(); }
 
+const doubleDigit = (digit) => {
+    if (digit < 10) {
+        return `0${digit}`
+    } return digit
+}
+
 const date = new Date();
-current_date.max = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`
+const todayDate = `${date.getFullYear()}-${doubleDigit(date.getMonth() + 1)}-${doubleDigit(date.getDate())}`
+current_date.max = todayDate
 
 const initialValue = {
-    date: `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`,
+    date: todayDate,
     amount: 1,
     from: "usd",
     to: "inr",
 }
 
 current_date.value = initialValue.date;
-current_date.max = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
+current_date.max = todayDate;
 current_date.min = `${date.getFullYear()}-${date.getMonth()}-${2024 - 1}`;
 
 // Fill select field with currency available
@@ -68,7 +75,7 @@ const getRateJson = async (date, from, to) => {
         const { date: responseDate, [from]: rates } = await res.json();
         return { date: responseDate, from, to, [from]: rates[from], [to]: rates[to] };
     } catch (e) {
-        console.log(e);
+        alert("Rate Not available, Change Date")
     }
 };
 
